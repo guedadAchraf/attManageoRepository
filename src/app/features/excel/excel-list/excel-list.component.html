@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="header">
+    <h1>Mes Fichiers Excel</h1>
+  </div>
+
+  <mat-card *ngIf="!loading && excelFiles.length === 0">
+    <mat-card-content class="text-center">
+      <mat-icon style="font-size: 64px; width: 64px; height: 64px; color: #ccc;">table_chart</mat-icon>
+      <h3>Aucun fichier Excel</h3>
+      <p>Soumettez un formulaire pour générer votre premier fichier Excel</p>
+      <button mat-raised-button color="primary" routerLink="/forms">
+        <mat-icon>description</mat-icon>
+        Voir les formulaires
+      </button>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="!loading && excelFiles.length > 0">
+    <table mat-table [dataSource]="excelFiles" class="full-width">
+      <ng-container matColumnDef="fileName">
+        <th mat-header-cell *matHeaderCellDef>Nom du fichier</th>
+        <td mat-cell *matCellDef="let file">{{ file.fileName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="formName">
+        <th mat-header-cell *matHeaderCellDef>Formulaire</th>
+        <td mat-cell *matCellDef="let file">{{ file.form?.name || 'N/A' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="version">
+        <th mat-header-cell *matHeaderCellDef>Version</th>
+        <td mat-cell *matCellDef="let file">
+          <span class="version-badge">v{{ file.version }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="submissionsCount">
+        <th mat-header-cell *matHeaderCellDef>Entrées</th>
+        <td mat-cell *matCellDef="let file">{{ file.submissionsCount }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>Créé le</th>
+        <td mat-cell *matCellDef="let file">{{ file.createdAt | date:'short' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let file">
+          <button mat-icon-button color="primary" (click)="downloadFile(file)" matTooltip="Télécharger">
+            <mat-icon>download</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteFile(file)" matTooltip="Supprimer">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card>
+
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

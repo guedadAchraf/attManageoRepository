@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="header">
+    <h1>Mes Formulaires</h1>
+    <button mat-raised-button color="primary" (click)="createForm()">
+      <mat-icon>add</mat-icon>
+      Créer un formulaire
+    </button>
+  </div>
+
+  <mat-card *ngIf="!loading && forms.length === 0">
+    <mat-card-content class="text-center">
+      <mat-icon style="font-size: 64px; width: 64px; height: 64px; color: #ccc;">description</mat-icon>
+      <h3>Aucun formulaire</h3>
+      <p>Créez votre premier formulaire pour commencer</p>
+      <button mat-raised-button color="primary" (click)="createForm()">
+        <mat-icon>add</mat-icon>
+        Créer un formulaire
+      </button>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="!loading && forms.length > 0">
+    <table mat-table [dataSource]="forms" class="full-width">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nom</th>
+        <td mat-cell *matCellDef="let form">{{ form.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="fields">
+        <th mat-header-cell *matHeaderCellDef>Champs</th>
+        <td mat-cell *matCellDef="let form">{{ form.fields?.length || 0 }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="submissions">
+        <th mat-header-cell *matHeaderCellDef>Soumissions</th>
+        <td mat-cell *matCellDef="let form">{{ form._count?.submissions || 0 }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>Créé le</th>
+        <td mat-cell *matCellDef="let form">{{ form.createdAt | date:'short' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let form">
+          <button mat-icon-button color="primary" (click)="submitForm(form)" matTooltip="Remplir">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button style="color: green;" (click)="downloadExcel(form)" matTooltip="Télécharger Excel">
+            <mat-icon>download</mat-icon>
+          </button>
+          <button mat-icon-button color="accent" (click)="editForm(form)" matTooltip="Modifier">
+            <mat-icon>settings</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteForm(form)" matTooltip="Supprimer">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card>
+
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

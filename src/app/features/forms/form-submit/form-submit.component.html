@@ -1,0 +1,40 @@
+<div class="container">
+  <h1 *ngIf="form">{{ form.name }}</h1>
+  <p class="form-description" *ngIf="form">Remplissez le formulaire ci-dessous</p>
+
+  <mat-card *ngIf="!loading && form">
+    <mat-card-content>
+      <form [formGroup]="submissionForm" (ngSubmit)="onSubmit()">
+        <div *ngFor="let field of form.fields">
+          <mat-form-field class="full-width" appearance="outline" *ngIf="field.type === 'text'">
+            <mat-label>{{ field.label }} <span *ngIf="field.required" style="color: red;">*</span></mat-label>
+            <input matInput [formControlName]="field.id!.toString()">
+            <mat-error *ngIf="submissionForm.get(field.id!.toString())?.hasError('required')">
+              Ce champ est requis
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width" appearance="outline" *ngIf="field.type === 'textarea'">
+            <mat-label>{{ field.label }} <span *ngIf="field.required" style="color: red;">*</span></mat-label>
+            <textarea matInput [formControlName]="field.id!.toString()" rows="4"></textarea>
+            <mat-error *ngIf="submissionForm.get(field.id!.toString())?.hasError('required')">
+              Ce champ est requis
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-button type="button" (click)="cancel()" [disabled]="submitting">Annuler</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="submitting">
+            <mat-spinner *ngIf="submitting" diameter="20"></mat-spinner>
+            {{ submitting ? 'Envoi...' : 'Soumettre' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

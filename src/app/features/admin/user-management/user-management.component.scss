@@ -1,0 +1,50 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+table {
+  width: 100%;
+}
+
+.create-user-form {
+  margin-bottom: 24px;
+  
+  .form-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+}
+
+.role-badge {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  
+  &.admin {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  &.user {
+    background-color: #4caf50;
+    color: white;
+  }
+}

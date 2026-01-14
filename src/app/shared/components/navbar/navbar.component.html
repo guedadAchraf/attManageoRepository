@@ -1,0 +1,41 @@
+<mat-toolbar color="primary" *ngIf="currentUser$ | async as user">
+  <span class="logo" routerLink="/dashboard">📋 Gestion Formulaires</span>
+  <span class="spacer"></span>
+  
+  <button mat-button routerLink="/dashboard">
+    <mat-icon>dashboard</mat-icon>
+    Tableau de bord
+  </button>
+  
+  <button mat-button routerLink="/forms">
+    <mat-icon>description</mat-icon>
+    Formulaires
+  </button>
+  
+  <button mat-button routerLink="/excel">
+    <mat-icon>table_chart</mat-icon>
+    Fichiers Excel
+  </button>
+  
+  <button mat-button routerLink="/admin/users" *ngIf="isAdmin">
+    <mat-icon>people</mat-icon>
+    Utilisateurs
+  </button>
+  
+  <button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon>account_circle</mat-icon>
+    {{ user.email }}
+  </button>
+  
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item disabled>
+      <mat-icon>badge</mat-icon>
+      <span>{{ user.role }}</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Déconnexion</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

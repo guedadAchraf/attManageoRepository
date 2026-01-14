@@ -1,0 +1,56 @@
+h1 {
+  margin-bottom: 24px;
+}
+
+h3 {
+  margin: 24px 0 16px 0;
+  color: #333;
+}
+
+.field-card {
+  margin-bottom: 16px;
+  background-color: #f9f9f9;
+}
+
+.field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  h4 {
+    margin: 0;
+    color: #666;
+  }
+
+  .field-actions {
+    display: flex;
+    gap: 4px;
+  }
+}
+
+.field-inputs {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  mat-form-field {
+    min-width: 150px;
+  }
+
+  .flex-grow {
+    flex: 1;
+  }
+}
+
+.add-field-btn {
+  margin-top: 16px;
+  width: 100%;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
+}

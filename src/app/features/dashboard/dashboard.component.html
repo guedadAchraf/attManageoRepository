@@ -1,0 +1,78 @@
+<div class="container">
+  <h1>Tableau de bord</h1>
+  
+  <div class="welcome-message" *ngIf="currentUser">
+    <h2>Bienvenue, {{ currentUser.email }}!</h2>
+    <p>Rôle: <strong>{{ currentUser.role }}</strong></p>
+  </div>
+
+  <div class="stats-grid" *ngIf="!loading">
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-icon">
+          <mat-icon color="primary">description</mat-icon>
+        </div>
+        <div class="stat-info">
+          <h3>{{ stats.formsCount }}</h3>
+          <p>Formulaires créés</p>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" routerLink="/forms">Voir les formulaires</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-icon">
+          <mat-icon color="accent">send</mat-icon>
+        </div>
+        <div class="stat-info">
+          <h3>{{ stats.totalSubmissions }}</h3>
+          <p>Soumissions totales</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-icon">
+          <mat-icon color="warn">table_chart</mat-icon>
+        </div>
+        <div class="stat-info">
+          <h3>{{ stats.excelFilesCount }}</h3>
+          <p>Fichiers Excel</p>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" routerLink="/excel">Voir les fichiers</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <mat-card class="quick-actions">
+    <mat-card-header>
+      <mat-card-title>Actions rapides</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="actions-grid">
+        <button mat-raised-button color="primary" routerLink="/forms/create">
+          <mat-icon>add</mat-icon>
+          Créer un formulaire
+        </button>
+        <button mat-raised-button color="accent" routerLink="/forms">
+          <mat-icon>list</mat-icon>
+          Mes formulaires
+        </button>
+        <button mat-raised-button routerLink="/excel">
+          <mat-icon>download</mat-icon>
+          Télécharger Excel
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
